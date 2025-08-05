@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'reac
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Header from '../components/Header';
 
 const stallSizes = ['Small', 'Medium', 'Large'];
 
@@ -21,12 +22,13 @@ const BookStallScreen = () => {
     }
     // Dummy booking logic
     Alert.alert('Success', 'Stall booked successfully!', [
-      { text: 'OK', onPress: () => navigation.replace('MyBookings') },
+      { text: 'OK', onPress: () => navigation.navigate('MyBookings') },
     ]);
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header title="Book Stall" showBack onBack={() => navigation.goBack()} />
       <View style={styles.content}>
         <View style={styles.imagePlaceholder} />
         <Text style={styles.title}>{event?.title || 'Event'}</Text>

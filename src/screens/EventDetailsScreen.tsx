@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Header from '../components/Header';
 
 const EventDetailsScreen = () => {
   const navigation: any = useNavigation();
@@ -13,6 +14,7 @@ const EventDetailsScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header title="Event Details" showBack onBack={() => navigation.goBack()} />
       <View style={styles.content}>
         <View style={styles.imagePlaceholder} />
         <Text style={styles.title}>{event.title}</Text>

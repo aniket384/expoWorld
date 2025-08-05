@@ -44,7 +44,7 @@ interface TabContextType {
   setActiveTab: (tab: TabType) => void;
 }
 
-const TabContext = createContext<TabContextType | undefined>(undefined);
+export const TabContext = createContext<TabContextType | undefined>(undefined);
 
 export const useTab = () => {
   const context = useContext(TabContext);
@@ -56,10 +56,6 @@ export const useTab = () => {
 
 const AppNavigator = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
-
-  const handleTabPress = (tab: TabType) => {
-    setActiveTab(tab);
-  };
 
   const renderTabScreen = () => {
     switch (activeTab) {
@@ -79,7 +75,13 @@ const AppNavigator = () => {
   return (
     <TabContext.Provider value={{ activeTab, setActiveTab }}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator 
+          screenOptions={{ 
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+          }}
+        >
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Intro" component={IntroScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -87,13 +89,62 @@ const AppNavigator = () => {
           <Stack.Screen name="MainTabs" options={{ headerShown: false }}>
             {() => renderTabScreen()}
           </Stack.Screen>
-          <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
-          <Stack.Screen name="BookStall" component={BookStallScreen} />
-          <Stack.Screen name="ContactUs" component={ContactUsScreen} />
-          <Stack.Screen name="About" component={AboutScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="Terms" component={TermsScreen} />
-          <Stack.Screen name="Help" component={HelpScreen} />
+          <Stack.Screen 
+            name="EventDetails" 
+            component={EventDetailsScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="BookStall" 
+            component={BookStallScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="ContactUs" 
+            component={ContactUsScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="About" 
+            component={AboutScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="Settings" 
+            component={SettingsScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="Terms" 
+            component={TermsScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="Help" 
+            component={HelpScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </TabContext.Provider>

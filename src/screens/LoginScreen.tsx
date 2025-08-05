@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingVi
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Header from '../components/Header';
 
 const LoginScreen = () => {
   const navigation: any = useNavigation();
@@ -15,11 +16,13 @@ const LoginScreen = () => {
       return;
     }
     setError('');
-    navigation.replace('MainTabs');
+    // Navigate to OTP screen instead of directly to MainTabs
+    navigation.navigate('OTP');
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header title="Login" showBack onBack={() => navigation.goBack()} />
       <KeyboardAvoidingView
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -37,7 +40,7 @@ const LoginScreen = () => {
           />
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>Send OTP</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,12 @@ import Header from '../components/Header';
 const OTPScreen = () => {
   const navigation: any = useNavigation();
   const [otp, setOtp] = useState(['', '', '', '']);
-  const inputRefs = Array(4).fill(0).map(() => React.useRef<TextInput>(null));
+  const inputRefs = [
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+  ];
 
   const handleOtpChange = (text: string, index: number) => {
     const newOtp = [...otp];

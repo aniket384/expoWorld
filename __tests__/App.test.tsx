@@ -7,6 +7,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from '../src/screens/SplashScreen';
 import IntroScreen from '../src/screens/IntroScreen';
+import LoginScreen from '../src/screens/LoginScreen';
 
 jest.mock('@react-navigation/native', () => {
   const actualNav = jest.requireActual('@react-navigation/native');
@@ -46,11 +47,24 @@ describe('App Navigation Flow', () => {
 
   it('renders HomeScreen after OTP verification', () => {
     const HomeScreen = require('../src/screens/HomeScreen').default;
+    const { TabContext } = require('../src/navigation/AppNavigator');
+    
     const { getByText } = render(
-      <NavigationContainer>
-        <HomeScreen />
-      </NavigationContainer>
+      <TabContext.Provider value={{ activeTab: 'home', setActiveTab: jest.fn() }}>
+        <NavigationContainer>
+          <HomeScreen />
+        </NavigationContainer>
+      </TabContext.Provider>
     );
     expect(getByText('Find & Book Your Stall at the Best Events!')).toBeTruthy();
+  });
+
+  it('LoginScreen navigates to OTP screen', () => {
+    const { getByText } = render(
+      <NavigationContainer>
+        <LoginScreen />
+      </NavigationContainer>
+    );
+    expect(getByText('Send OTP')).toBeTruthy();
   });
 });

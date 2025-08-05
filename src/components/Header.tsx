@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, Platform, StatusBar, StyleSheet } from 'react-native';
 import LogoSvg from '../assets/LogoSvg';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../utils/theme';
@@ -13,7 +13,7 @@ interface HeaderProps {
 }
 
 const BackArrow = ({ onPress, color = '#fff' }: { onPress: () => void; color?: string }) => (
-  <TouchableOpacity style={{ padding: 4, marginRight: 8 }} onPress={onPress}>
+  <TouchableOpacity style={styles.backButton} onPress={onPress}>
     <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
       <Path d="M15 19l-7-7 7-7" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
     </Svg>
@@ -33,8 +33,15 @@ const Header: React.FC<HeaderProps> = ({ title = 'expoWorld', rightAction, showB
       elevation: 4,
     },
   });
+  
+  const headerStyle = {
+    backgroundColor: dark ? '#222' : '#fff',
+    ...shadow,
+    zIndex: 10,
+  };
+  
   return (
-    <View style={[{ backgroundColor: dark ? '#222' : '#fff' }, shadow, { zIndex: 10 }]}> 
+    <View style={headerStyle}> 
       <StatusBar
         barStyle={dark ? 'light-content' : 'dark-content'}
         backgroundColor={dark ? '#222' : '#fff'}
@@ -62,5 +69,12 @@ const Header: React.FC<HeaderProps> = ({ title = 'expoWorld', rightAction, showB
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  backButton: {
+    padding: 4,
+    marginRight: 8,
+  },
+});
 
 export default Header; 
