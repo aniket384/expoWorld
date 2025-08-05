@@ -1,3 +1,28 @@
+# ExpoWorld - Stall Booking App
+
+## Project Structure
+
+```
+expoWorld/
+  src/
+    components/
+    screens/
+    navigation/
+    assets/
+    utils/
+    constants/
+    data/
+```
+
+## Main Dependencies
+- @react-navigation/native
+- @react-navigation/stack
+- react-native-screens
+- react-native-safe-area-context
+- react-native-gesture-handler
+- react-native-reanimated
+- react-native-responsive-screen
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
