@@ -16,8 +16,9 @@ const LoginScreen = () => {
       return;
     }
     setError('');
-    // Navigate to OTP screen instead of directly to MainTabs
-    navigation.navigate('OTP');
+    // Navigate to OTP screen with mobile number param and autoSend flag
+    navigation.navigate('OTP', { mobile, autoSend: true });
+    console.log('Mobile number:', mobile);
   };
 
   return (

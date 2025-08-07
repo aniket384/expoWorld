@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "12479303500",
+    "firebase_url": "https://expoduniya-1a26a-default-rtdb.firebaseio.com",
+    "project_id": "expoduniya-1a26a",
+    "storage_bucket": "expoduniya-1a26a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12479303500:android:f80e3cfccc9520cab089e9",
+        "android_client_info": {
+          "package_name": "com.expoduniya"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA43TTEL1FZ7KSUEsYzg7OnBf_yEE5dlcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12479303500:android:e44240d0e0a0dabbb089e9",
+        "android_client_info": {
+          "package_name": "com.expoworld"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA43TTEL1FZ7KSUEsYzg7OnBf_yEE5dlcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

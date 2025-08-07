@@ -1,86 +1,182 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import auth from '@react-native-firebase/auth';
 import Header from '../components/Header';
 
 const OTPScreen = () => {
   const navigation: any = useNavigation();
-  const [otp, setOtp] = useState(['', '', '', '']);
-  const inputRefs = [
-    useRef<TextInput>(null),
-    useRef<TextInput>(null),
-    useRef<TextInput>(null),
-    useRef<TextInput>(null),
-  ];
+  const route: any = useRoute();
+  const { mobile, autoSend } = route.params || {};
+
+  const [otp, setOtp] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [confirm, setConfirm] = useState<any>(null);
+  const [codeSent, setCodeSent] = useState(false);
+
+  const otpInputs = useRef<(TextInput | null)[]>([]);
+
+  useEffect(() => {
+    if (autoSend && mobile) {
+      console.log('Auto-sending OTP on screen load');
+      handleSendCode();
+    }
+  }, [autoSend, mobile]);
+
+  const handleSendCode = async () => {
+    console.log('handleSendCode called with mobile:', mobile);
+    if (!mobile) {
+      setError('Mobile number not provided');
+      console.log('Mobile number not provided');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('Attempting to send OTP to:', `+91${mobile}`);
+      const confirmation = await auth().signInWithPhoneNumber(`+91${mobile}`);
+      console.log('OTP confirmation object:', confirmation);
+      setConfirm(confirmation);
+      setCodeSent(true);
+      
+      Alert.alert('OTP Sent', 'Please check your SMS for the verification code');
+    } catch (error: any) {
+      console.error('Error sending OTP:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      setError(error.message || 'Failed to send OTP');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOTP = async () => {
+    console.log('handleVerifyOTP called with otp:', otp);
+    if (!confirm || otp.length !== 6) {
+      setError('Please enter a valid 6-digit OTP');
+      console.log('Invalid OTP or confirmation object missing');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('Verifying OTP:', otp);
+      await confirm.confirm(otp);
+      console.log('OTP verified successfully');
+      
+      Alert.alert('Success', 'Phone number verified successfully!');
+      navigation.navigate('MainTabs');
+    } catch (error: any) {
+      console.error('Error verifying OTP:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      setError(error.message || 'Invalid OTP');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    console.log('handleResendCode called with mobile:', mobile);
+    if (!mobile) return;
+    
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('Resending OTP to:', `+91${mobile}`);
+      const confirmation = await auth().signInWithPhoneNumber(`+91${mobile}`);
+      console.log('New OTP confirmation object:', confirmation);
+      setConfirm(confirmation);
+      
+      Alert.alert('OTP Resent', 'A new verification code has been sent');
+    } catch (error: any) {
+      console.error('Error resending OTP:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      setError(error.message || 'Failed to resend OTP');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleOtpChange = (text: string, index: number) => {
-    const newOtp = [...otp];
+    const newOtp = otp.split('');
     newOtp[index] = text;
-    setOtp(newOtp);
+    setOtp(newOtp.join(''));
 
-    // Auto-focus next input
-    if (text && index < 3) {
-      inputRefs[index + 1].current?.focus();
+    // Move to next input
+    if (text && index < 5) {
+      otpInputs.current[index + 1]?.focus();
     }
   };
 
   const handleKeyPress = (e: any, index: number) => {
     if (e.nativeEvent.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs[index - 1].current?.focus();
+      otpInputs.current[index - 1]?.focus();
     }
-  };
-
-  const handleVerifyOTP = () => {
-    const otpString = otp.join('');
-    if (otpString.length === 4) {
-      // Simulate OTP verification
-      Alert.alert('Success', 'OTP verified successfully!', [
-        { text: 'OK', onPress: () => navigation.replace('MainTabs') }
-      ]);
-    } else {
-      Alert.alert('Error', 'Please enter a valid 4-digit OTP');
-    }
-  };
-
-  const handleResendOTP = () => {
-    Alert.alert('OTP Resent', 'A new OTP has been sent to your phone number');
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Verify OTP" showBack onBack={() => navigation.goBack()} />
-      <View style={styles.content}>
-        <Text style={styles.title}>Enter Verification Code</Text>
-        <Text style={styles.subtitle}>
-          We've sent a 4-digit code to your phone number
-        </Text>
-        
-        <View style={styles.otpContainer}>
-          {otp.map((digit, index) => (
-            <TextInput
-              key={index}
-              ref={inputRefs[index]}
-              style={styles.otpInput}
-              value={digit}
-              onChangeText={(text) => handleOtpChange(text, index)}
-              onKeyPress={(e) => handleKeyPress(e, index)}
-              keyboardType="numeric"
-              maxLength={1}
-              textAlign="center"
-            />
-          ))}
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.innerContainer}>
+          <Text style={styles.title}>Verify OTP</Text>
+          <Text style={styles.subtitle}>
+            Enter the 6-digit code sent to +91{mobile}
+          </Text>
+
+          <View style={styles.otpContainer}>
+            {[0, 1, 2, 3, 4, 5].map((index) => (
+              <TextInput
+                key={index}
+                ref={(ref) => { otpInputs.current[index] = ref; }}
+                style={styles.otpInput}
+                placeholder="0"
+                keyboardType="phone-pad"
+                maxLength={1}
+                value={otp[index] || ''}
+                onChangeText={(text) => handleOtpChange(text, index)}
+                onKeyPress={(e) => handleKeyPress(e, index)}
+                editable={!loading}
+              />
+            ))}
+          </View>
+
+          {error ? <Text style={styles.error}>{error}</Text> : null}
+
+          <TouchableOpacity
+            style={[styles.button, loading && styles.disabledButton]}
+            onPress={codeSent ? handleVerifyOTP : handleSendCode}
+            disabled={loading}
+          >
+            <Text style={styles.buttonText}>
+              {loading ? 'Processing...' : codeSent ? 'Verify OTP' : 'Send OTP'}
+            </Text>
+          </TouchableOpacity>
+
+          {codeSent && (
+            <TouchableOpacity
+              style={styles.resendButton}
+              onPress={handleResendCode}
+              disabled={loading}
+            >
+              <Text style={styles.resendText}>Resend OTP</Text>
+            </TouchableOpacity>
+          )}
         </View>
-
-        <TouchableOpacity style={styles.verifyButton} onPress={handleVerifyOTP}>
-          <Text style={styles.verifyButtonText}>Verify OTP</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.resendButton} onPress={handleResendOTP}>
-          <Text style={styles.resendButtonText}>Resend OTP</Text>
-        </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -88,63 +184,74 @@ const OTPScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f8fa',
+    backgroundColor: '#fff',
   },
-  content: {
+  flex: {
+    flex: 1,
+  },
+  innerContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: wp('8%'),
   },
   title: {
-    fontSize: wp('6%'),
+    fontSize: wp('8%'),
     fontWeight: 'bold',
     color: '#222',
     marginBottom: hp('1%'),
-    textAlign: 'center',
   },
   subtitle: {
     fontSize: wp('4%'),
     color: '#666',
-    textAlign: 'center',
     marginBottom: hp('4%'),
+    textAlign: 'center',
   },
   otpContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: hp('4%'),
+    marginBottom: hp('3%'),
   },
   otpInput: {
-    width: wp('15%'),
-    height: wp('15%'),
-    borderWidth: 2,
-    borderColor: '#007AFF',
-    borderRadius: 12,
+    width: wp('12%'),
+    height: wp('12%'),
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    textAlign: 'center',
     fontSize: wp('6%'),
     fontWeight: 'bold',
-    backgroundColor: '#fff',
+    color: '#222',
+    backgroundColor: '#f7f8fa',
   },
-  verifyButton: {
+  error: {
+    color: 'red',
+    marginBottom: hp('1%'),
+    fontSize: wp('4%'),
+  },
+  button: {
     backgroundColor: '#007AFF',
-    paddingVertical: hp('2%'),
+    paddingVertical: hp('1.8%'),
     paddingHorizontal: wp('20%'),
     borderRadius: 30,
-    marginBottom: hp('2%'),
+    marginTop: hp('2%'),
+    alignSelf: 'center',
   },
-  verifyButtonText: {
+  disabledButton: {
+    backgroundColor: '#ccc',
+  },
+  buttonText: {
     color: '#fff',
     fontSize: wp('5%'),
     fontWeight: 'bold',
-    textAlign: 'center',
+    letterSpacing: 1,
   },
   resendButton: {
-    paddingVertical: hp('1%'),
+    marginTop: hp('2%'),
   },
-  resendButtonText: {
+  resendText: {
     color: '#007AFF',
     fontSize: wp('4%'),
-    fontWeight: '600',
   },
 });
 
