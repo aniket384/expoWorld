@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 import EventsList from '../components/EventsList';
 
-const EventsScreen: React.FC = () => {
-  const handleEventPress = (event: any) => {
+const EventsScreen = () => {
+  const handleEventPress = (event) => {
     console.log('Event pressed:', event);
     // Navigate to event details screen or handle event selection
   };

@@ -3,13 +3,13 @@ import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
 
-const TermsScreen = () => {
-  const navigation: any = useNavigation();
+const SettingsScreen = () => {
+  const navigation = useNavigation();
   
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Terms & Privacy" showBack onBack={() => navigation.goBack()} />
-      <Text style={styles.text}>By using expoWorld, you agree to our terms of service and privacy policy. Your data is safe with us.</Text>
+      <Header title="Settings" showBack onBack={() => navigation.goBack()} />
+      <Text style={styles.text}>Notification preferences, privacy settings, and more coming soon!</Text>
     </SafeAreaView>
   );
 };
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   text: { fontSize: 16, color: '#222', marginTop: 16 },
 });
 
-export default TermsScreen; 
+export default SettingsScreen;

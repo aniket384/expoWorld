@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import LogoSvg from '../assets/LogoSvg';
 
 const SplashScreen = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
 
   useEffect(() => {
     // Simulate loading, then navigate to Intro or Login
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SplashScreen; 
+export default SplashScreen;

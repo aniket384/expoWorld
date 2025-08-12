@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
 
 const OrganizerDashboard = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
   return (
     <View style={{ flex: 1, backgroundColor: '#181A20' }}>
       <Header title="Organizer Dashboard" dark />
@@ -21,4 +21,4 @@ const OrganizerDashboard = () => {
   );
 };
 
-export default OrganizerDashboard; 
+export default OrganizerDashboard;

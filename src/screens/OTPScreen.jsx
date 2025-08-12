@@ -7,17 +7,17 @@ import auth from '@react-native-firebase/auth';
 import Header from '../components/Header';
 
 const OTPScreen = () => {
-  const navigation: any = useNavigation();
-  const route: any = useRoute();
+  const navigation = useNavigation();
+  const route = useRoute();
   const { mobile, autoSend } = route.params || {};
 
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [confirm, setConfirm] = useState<any>(null);
+  const [confirm, setConfirm] = useState(null);
   const [codeSent, setCodeSent] = useState(false);
 
-  const otpInputs = useRef<(TextInput | null)[]>([]);
+  const otpInputs = useRef([]);
 
   useEffect(() => {
     if (autoSend && mobile) {
@@ -45,10 +45,8 @@ const OTPScreen = () => {
       setCodeSent(true);
       
       Alert.alert('OTP Sent', 'Please check your SMS for the verification code');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error sending OTP:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
       setError(error.message || 'Failed to send OTP');
     } finally {
       setLoading(false);
@@ -73,10 +71,8 @@ const OTPScreen = () => {
       
       Alert.alert('Success', 'Phone number verified successfully!');
       navigation.navigate('MainTabs');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error verifying OTP:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
       setError(error.message || 'Invalid OTP');
     } finally {
       setLoading(false);
@@ -97,17 +93,15 @@ const OTPScreen = () => {
       setConfirm(confirmation);
       
       Alert.alert('OTP Resent', 'A new verification code has been sent');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error resending OTP:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
       setError(error.message || 'Failed to resend OTP');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleOtpChange = (text: string, index: number) => {
+  const handleOtpChange = (text, index) => {
     const newOtp = otp.split('');
     newOtp[index] = text;
     setOtp(newOtp.join(''));
@@ -118,7 +112,7 @@ const OTPScreen = () => {
     }
   };
 
-  const handleKeyPress = (e: any, index: number) => {
+  const handleKeyPress = (e, index) => {
     if (e.nativeEvent.key === 'Backspace' && !otp[index] && index > 0) {
       otpInputs.current[index - 1]?.focus();
     }

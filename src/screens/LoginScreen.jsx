@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Header from '../components/Header';
 
 const LoginScreen = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
 
@@ -105,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen; 
+export default LoginScreen;

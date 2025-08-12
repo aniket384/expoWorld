@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -25,11 +25,11 @@ const slides = [
 const { width } = Dimensions.get('window');
 
 const IntroScreen = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  const handleScroll = (event) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);
     setCurrentIndex(index);
   };
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IntroScreen; 
+export default IntroScreen;

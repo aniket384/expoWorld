@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const MoreScreen = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <Header title="More" />
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MoreScreen; 
+export default MoreScreen;

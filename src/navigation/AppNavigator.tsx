@@ -16,6 +16,7 @@ import AboutScreen from '../screens/AboutScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TermsScreen from '../screens/TermsScreen';
 import HelpScreen from '../screens/HelpScreen';
+import PaymentScreen from '../screens/PaymentScreen';
 
 // Define navigation types
 type RootStackParamList = {
@@ -26,6 +27,7 @@ type RootStackParamList = {
   MainTabs: undefined;
   EventDetails: { event: any };
   BookStall: undefined;
+  Payment: { bookingDetails: any };
   ContactUs: undefined;
   About: undefined;
   Settings: undefined;
@@ -100,6 +102,14 @@ const AppNavigator = () => {
           <Stack.Screen 
             name="BookStall" 
             component={BookStallScreen}
+            options={{
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+            }}
+          />
+          <Stack.Screen 
+            name="Payment" 
+            component={PaymentScreen}
             options={{
               gestureEnabled: true,
               gestureDirection: 'horizontal',

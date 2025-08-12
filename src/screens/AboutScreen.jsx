@@ -3,13 +3,13 @@ import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
 
-const SettingsScreen = () => {
-  const navigation: any = useNavigation();
+const AboutScreen = () => {
+  const navigation = useNavigation();
   
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Settings" showBack onBack={() => navigation.goBack()} />
-      <Text style={styles.text}>Notification preferences, privacy settings, and more coming soon!</Text>
+      <Header title="About" showBack onBack={() => navigation.goBack()} />
+      <Text style={styles.text}>expoWorld is your one-stop solution for booking stalls at events. Discover, book, and manage your event presence with ease!</Text>
     </SafeAreaView>
   );
 };
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   text: { fontSize: 16, color: '#222', marginTop: 16 },
 });
 
-export default SettingsScreen; 
+export default AboutScreen;
