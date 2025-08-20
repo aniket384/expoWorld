@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Animated,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -119,16 +120,13 @@ const EventDetailsScreen = () => {
           </View>
         </View>
 
-        {/* Action Button */}
-        <View style={styles.actionContainer}>
-          {/* Removed the Book a Stall button to prevent navigation without stall selection */}
-          {/* <TouchableOpacity
-            style={[styles.bookButton, { backgroundColor: colors.primary }]}
-            onPress={() => navigation.navigate('BookStall', { event })}
+          {/* Floating Action Button for Stall Booking */}
+          <TouchableOpacity
+            style={[styles.floatingButton, { backgroundColor: colors.primary }]}
+            onPress={() => navigation.navigate('BookStall', { event, stall: event.stalls[0] })} // Pass the first stall as an example
           >
-            <Text style={styles.bookButtonText}>Book a Stall</Text>
-          </TouchableOpacity> */}
-        </View>
+            <Text style={styles.floatingButtonText}>Book Stall</Text>
+          </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -262,6 +260,25 @@ const styles = StyleSheet.create({
   bookButtonText: {
     color: '#fff',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  floatingButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 30,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    zIndex: 1000,
+  },
+  floatingButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
