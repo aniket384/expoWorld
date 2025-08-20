@@ -63,7 +63,7 @@ const MyBookingsScreen = () => {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="My Bookings" showBack onBack={() => navigation.goBack()} />
+      <Header title="My Bookings" showBack onBack={() => navigation.navigate('HomeScreen')} />
       
       <FlatList
         data={bookings}

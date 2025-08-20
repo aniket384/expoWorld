@@ -6,17 +6,21 @@ import IntroScreen from '../screens/IntroScreen';
 import LoginScreen from '../screens/LoginScreen';
 import OTPScreen from '../screens/OTPScreen';
 import HomeScreen from '../screens/HomeScreen';
+import HomeScreenOrganizer from '../screens/HomeScreenOrganizer';
 import EventDetailsScreen from '../screens/EventDetailsScreen';
 import BookStallScreen from '../screens/BookStallScreen';
 import MyBookingsScreen from '../screens/MyBookingsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ContactUsScreen from '../screens/ContactUsScreen';
 import MoreScreen from '../screens/MoreScreen';
-import AboutScreen from '../screens/AboutScreen';
+import CreateEventScreen from '../screens/CreateEventScreen';
+import PreviousEventsScreen from '../screens/PreviousEventsScreen';
+import TotalParticipantsScreen from '../screens/TotalParticipantsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TermsScreen from '../screens/TermsScreen';
 import HelpScreen from '../screens/HelpScreen';
 import PaymentScreen from '../screens/PaymentScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 // Define navigation types
 type RootStackParamList = {
@@ -25,6 +29,7 @@ type RootStackParamList = {
   Login: undefined;
   OTP: undefined;
   MainTabs: undefined;
+  OrganizerDashboard: undefined;
   EventDetails: { event: any };
   BookStall: undefined;
   Payment: { bookingDetails: any };
@@ -33,6 +38,9 @@ type RootStackParamList = {
   Settings: undefined;
   Terms: undefined;
   Help: undefined;
+  CreateEvent: undefined;
+  PreviousEvents: undefined;
+  TotalParticipants: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -154,6 +162,22 @@ const AppNavigator = () => {
               gestureEnabled: true,
               gestureDirection: 'horizontal',
             }}
+          />
+          <Stack.Screen 
+            name="OrganizerDashboard" 
+            component={HomeScreenOrganizer} 
+          />
+          <Stack.Screen 
+            name="CreateEvent" 
+            component={CreateEventScreen} 
+          />
+          <Stack.Screen 
+            name="PreviousEvents" 
+            component={PreviousEventsScreen} 
+          />
+          <Stack.Screen 
+            name="TotalParticipants" 
+            component={TotalParticipantsScreen} 
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -70,7 +70,14 @@ const OTPScreen = () => {
       console.log('OTP verified successfully');
       
       Alert.alert('Success', 'Phone number verified successfully!');
-      navigation.navigate('MainTabs');
+      
+      // Check if this is an organizer login
+      const { isOrganizer } = route.params || {};
+      if (isOrganizer) {
+        navigation.navigate('OrganizerDashboard');
+      } else {
+        navigation.navigate('MainTabs');
+      }
     } catch (error) {
       console.error('Error verifying OTP:', error);
       setError(error.message || 'Invalid OTP');

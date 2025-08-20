@@ -9,6 +9,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
+  const [isOrganizer, setIsOrganizer] = useState(false); // New state for user type
 
   const handleLogin = () => {
     if (!/^\d{10}$/.test(mobile)) {
@@ -16,8 +17,8 @@ const LoginScreen = () => {
       return;
     }
     setError('');
-    // Navigate to OTP screen with mobile number param and autoSend flag
-    navigation.navigate('OTP', { mobile, autoSend: true });
+    // Navigate to OTP screen with mobile number param and user type
+    navigation.navigate('OTP', { mobile, autoSend: true, isOrganizer });
     console.log('Mobile number:', mobile);
   };
 
@@ -42,6 +43,11 @@ const LoginScreen = () => {
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Send OTP</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setIsOrganizer(!isOrganizer)}>
+            <Text style={styles.toggleText}>
+              {isOrganizer ? 'Login as Participant' : 'Login as Organizer'}
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -97,11 +103,10 @@ const styles = StyleSheet.create({
     marginTop: hp('2%'),
     alignSelf: 'center',
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: wp('5%'),
-    fontWeight: 'bold',
-    letterSpacing: 1,
+  toggleText: {
+    marginTop: hp('2%'),
+    color: '#007AFF',
+    fontSize: wp('4%'),
   },
 });
 
