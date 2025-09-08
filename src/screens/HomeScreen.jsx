@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { useTheme } from '../utils/theme';
+import StallBackground from '../components/StallBackground';
+import { fetchAllData } from '../services/firebaseDatabase';
 
-// Complete dummy events with all details for booking flow
+// Fallback dummy events in case Firebase fails
 const dummyEvents = [
   {
     id: '1',
@@ -163,9 +165,36 @@ const EventIcon = () => (
 const HomeScreen = () => {
   const navigation = useNavigation();
   const { colors, font, spacing } = useTheme();
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const fetchedEvents = await fetchAllData('events');
+        setEvents(fetchedEvents);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        // Fallback to dummy data if Firebase fails
+        setEvents(dummyEvents);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, []);
 
   const renderEvents = (category) => {
-    return dummyEvents.filter(e => e.category === category).map(event => (
+    if (loading) {
+      return (
+        <View style={{ alignItems: 'center', justifyContent: 'center', width: 180, height: 120 }}>
+          <ActivityIndicator size="small" color={colors.primary} />
+        </View>
+      );
+    }
+
+    return events.filter(e => e.category === category).map(event => (
       <TouchableOpacity
         key={event.id}
         style={{
@@ -199,38 +228,40 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <Header title="expoWorld" dark />
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: spacing.xl }}>
-        <View style={{
-          width: '100%',
-          minHeight: 120,
-          backgroundColor: colors.primary,
-          borderBottomLeftRadius: 32,
-          borderBottomRightRadius: 32,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: spacing.lg,
-          paddingVertical: spacing.lg,
-          shadowColor: colors.shadow,
-          shadowOpacity: 1,
-          shadowRadius: 12,
-          elevation: 3,
-        }}>
-          <Text style={{ color: '#fff', fontSize: font.size.xl, fontWeight: '800', fontFamily: font.family, textAlign: 'center', paddingHorizontal: spacing.xl, letterSpacing: 1 }}>Find & Book Your Stall at the Best Events!</Text>
-        </View>
-        {categories.map(cat => (
-          <View key={cat.key} style={{ marginBottom: spacing.lg, paddingLeft: spacing.md }}>
-            <Text style={{ fontSize: font.size.lg, fontWeight: '700', color: colors.text, fontFamily: font.family, marginBottom: spacing.sm }}>{cat.label}</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingBottom: spacing.sm }}>
-              {renderEvents(cat.key)}
-            </ScrollView>
+    <StallBackground>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Header title="expoWorld" dark />
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: spacing.xl }}>
+          <View style={{
+            width: '100%',
+            minHeight: 120,
+            backgroundColor: colors.primary,
+            borderBottomLeftRadius: 32,
+            borderBottomRightRadius: 32,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: spacing.lg,
+            paddingVertical: spacing.lg,
+            shadowColor: colors.shadow,
+            shadowOpacity: 1,
+            shadowRadius: 12,
+            elevation: 3,
+          }}>
+            <Text style={{ color: '#fff', fontSize: font.size.xl, fontWeight: '800', fontFamily: font.family, textAlign: 'center', paddingHorizontal: spacing.xl, letterSpacing: 1 }}>Find & Book Your Stall at the Best Events!</Text>
           </View>
-        ))}
-        <View style={{ height: spacing.xl }} />
-      </ScrollView>
-      <Footer />
-    </SafeAreaView>
+          {categories.map(cat => (
+            <View key={cat.key} style={{ marginBottom: spacing.lg, paddingLeft: spacing.md }}>
+              <Text style={{ fontSize: font.size.lg, fontWeight: '700', color: colors.text, fontFamily: font.family, marginBottom: spacing.sm }}>{cat.label}</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingBottom: spacing.sm }}>
+                {renderEvents(cat.key)}
+              </ScrollView>
+            </View>
+          ))}
+          <View style={{ height: spacing.xl }} />
+        </ScrollView>
+        <Footer />
+      </SafeAreaView>
+    </StallBackground>
   );
 };
 

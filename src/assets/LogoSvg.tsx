@@ -20,7 +20,7 @@ const LogoSvg = ({ size = 120, color = '#007AFF' }) => (
       textAnchor="middle"
       fontFamily="Arial"
     >
-      EW
+      TFW
     </SvgText>
     {/* Stylized booth/table below the text */}
     <Path

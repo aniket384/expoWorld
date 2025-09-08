@@ -14,6 +14,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Header from '../components/Header';
 import { useTheme } from '../utils/theme';
+import { useBooking } from '../context/BookingContext';
+import { getAuth } from 'firebase/auth';
+import StallBackground from '../components/StallBackground';
 
 const BookStallScreen = () => {
   const navigation = useNavigation();
@@ -31,6 +34,14 @@ const BookStallScreen = () => {
   });
 
   const [selectedStall, setSelectedStall] = useState(stall || null);
+  const [showPayment, setShowPayment] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [cardDetails, setCardDetails] = useState({
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+    cardholderName: '',
+  });
 
   if (!event) return null;
 
@@ -45,6 +56,9 @@ const BookStallScreen = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const { addBooking } = useBooking();
+  const auth = getAuth();
+
   const handleBooking = () => {
     if (!formData.businessName || !formData.ownerName || !formData.email || !formData.phone) {
       Alert.alert('Error', 'Please fill in all required fields');
@@ -56,28 +70,69 @@ const BookStallScreen = () => {
       return;
     }
 
-    Alert.alert(
-      'Confirm Booking',
-      `Are you sure you want to book ${selectedStall.name} for ${formatPrice(selectedStall.price)}?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Confirm',
-          onPress: () => {
-            Alert.alert(
-              'Success',
-              'Your stall booking has been confirmed! You will receive a confirmation email shortly.',
-              [
-                {
-                  text: 'OK',
-                  onPress: () => navigation.navigate('MyBookings'),
-                },
-              ]
-            );
+    setShowPayment(true);
+  };
+
+  const handlePayment = async () => {
+    if (!paymentMethod) {
+      Alert.alert('Error', 'Please select a payment method');
+      return;
+    }
+
+    if (paymentMethod === 'card' && (!cardDetails.cardNumber || !cardDetails.expiryDate || !cardDetails.cvv || !cardDetails.cardholderName)) {
+      Alert.alert('Error', 'Please fill in all card details');
+      return;
+    }
+
+    // Simulate payment processing
+    Alert.alert('Processing Payment', 'Please wait while we process your payment...');
+
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        Alert.alert('Error', 'You must be logged in to book a stall.');
+        return;
+      }
+
+      // Simulate payment API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      const bookingData = {
+        userId: user.uid,
+        eventId: event.id,
+        eventTitle: event.title,
+        stallId: selectedStall.id,
+        stallName: selectedStall.name,
+        stallType: selectedStall.type,
+        price: selectedStall.price,
+        businessName: formData.businessName,
+        ownerName: formData.ownerName,
+        email: formData.email,
+        phone: formData.phone,
+        description: formData.description,
+        requirements: formData.requirements,
+        paymentMethod: paymentMethod,
+        paymentStatus: 'completed',
+        status: 'confirmed',
+        createdAt: new Date(),
+      };
+
+      await addBooking(bookingData);
+
+      Alert.alert(
+        'Payment Successful!',
+        'Your stall booking has been confirmed! You will receive a confirmation email shortly.',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate('MyBookings'),
           },
-        },
-      ]
-    );
+        ]
+      );
+    } catch (error) {
+      Alert.alert('Payment Failed', 'Your payment could not be processed. Please try again.');
+      console.error('Payment error:', error);
+    }
   };
 
   const renderStallSelection = () => {
@@ -114,10 +169,11 @@ const BookStallScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="Book Stall" showBack onBack={() => navigation.goBack()} />
-      
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <StallBackground>
+      <SafeAreaView style={[styles.container, { backgroundColor: 'transparent' }]}>
+        <Header title="Book Stall" showBack onBack={() => navigation.goBack()} />
+
+        <ScrollView showsVerticalScrollIndicator={false}>
         {/* Event Summary */}
         <View style={[styles.eventSummary, { backgroundColor: colors.card }]}>
           <Image source={{ uri: event.image }} style={styles.eventImage} />
@@ -238,19 +294,155 @@ const BookStallScreen = () => {
           </View>
         )}
 
+        {/* Payment Section */}
+        {showPayment && selectedStall && (
+          <View style={[styles.section, { backgroundColor: colors.card }]}>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>Payment Details</Text>
+
+            <Text style={[styles.label, { color: colors.text }]}>Select Payment Method</Text>
+            <View style={styles.paymentMethods}>
+              <TouchableOpacity
+                style={[
+                  styles.paymentMethod,
+                  paymentMethod === 'card' && { borderColor: colors.primary, borderWidth: 2 },
+                ]}
+                onPress={() => setPaymentMethod('card')}
+              >
+                <Text style={[styles.paymentMethodText, { color: colors.text }]}>💳 Credit/Debit Card</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.paymentMethod,
+                  paymentMethod === 'upi' && { borderColor: colors.primary, borderWidth: 2 },
+                ]}
+                onPress={() => setPaymentMethod('upi')}
+              >
+                <Text style={[styles.paymentMethodText, { color: colors.text }]}>📱 UPI</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.paymentMethod,
+                  paymentMethod === 'wallet' && { borderColor: colors.primary, borderWidth: 2 },
+                ]}
+                onPress={() => setPaymentMethod('wallet')}
+              >
+                <Text style={[styles.paymentMethodText, { color: colors.text }]}>👛 Digital Wallet</Text>
+              </TouchableOpacity>
+            </View>
+
+            {paymentMethod === 'card' && (
+              <View style={styles.cardDetails}>
+                <View style={styles.inputGroup}>
+                  <Text style={[styles.label, { color: colors.text }]}>Card Number *</Text>
+                  <TextInput
+                    style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
+                    placeholder="1234 5678 9012 3456"
+                    placeholderTextColor={colors.textSecondary}
+                    keyboardType="numeric"
+                    maxLength={19}
+                    value={cardDetails.cardNumber}
+                    onChangeText={(text) => setCardDetails(prev => ({ ...prev, cardNumber: text }))}
+                  />
+                </View>
+                <View style={styles.cardRow}>
+                  <View style={[styles.inputGroup, { flex: 1, marginRight: wp('2%') }]}>
+                    <Text style={[styles.label, { color: colors.text }]}>Expiry Date *</Text>
+                    <TextInput
+                      style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
+                      placeholder="MM/YY"
+                      placeholderTextColor={colors.textSecondary}
+                      keyboardType="numeric"
+                      maxLength={5}
+                      value={cardDetails.expiryDate}
+                      onChangeText={(text) => setCardDetails(prev => ({ ...prev, expiryDate: text }))}
+                    />
+                  </View>
+                  <View style={[styles.inputGroup, { flex: 1 }]}>
+                    <Text style={[styles.label, { color: colors.text }]}>CVV *</Text>
+                    <TextInput
+                      style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
+                      placeholder="123"
+                      placeholderTextColor={colors.textSecondary}
+                      keyboardType="numeric"
+                      maxLength={4}
+                      secureTextEntry
+                      value={cardDetails.cvv}
+                      onChangeText={(text) => setCardDetails(prev => ({ ...prev, cvv: text }))}
+                    />
+                  </View>
+                </View>
+                <View style={styles.inputGroup}>
+                  <Text style={[styles.label, { color: colors.text }]}>Cardholder Name *</Text>
+                  <TextInput
+                    style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
+                    placeholder="John Doe"
+                    placeholderTextColor={colors.textSecondary}
+                    value={cardDetails.cardholderName}
+                    onChangeText={(text) => setCardDetails(prev => ({ ...prev, cardholderName: text }))}
+                  />
+                </View>
+              </View>
+            )}
+
+            {paymentMethod === 'upi' && (
+              <View style={styles.inputGroup}>
+                <Text style={[styles.label, { color: colors.text }]}>UPI ID *</Text>
+                <TextInput
+                  style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
+                  placeholder="yourname@upi"
+                  placeholderTextColor={colors.textSecondary}
+                  keyboardType="email-address"
+                  value={cardDetails.cardNumber} // reusing state for simplicity
+                  onChangeText={(text) => setCardDetails(prev => ({ ...prev, cardNumber: text }))}
+                />
+              </View>
+            )}
+
+            {paymentMethod === 'wallet' && (
+              <View style={styles.inputGroup}>
+                <Text style={[styles.label, { color: colors.text }]}>Wallet ID/Phone *</Text>
+                <TextInput
+                  style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
+                  placeholder="Enter wallet ID or phone"
+                  placeholderTextColor={colors.textSecondary}
+                  value={cardDetails.cardNumber} // reusing state for simplicity
+                  onChangeText={(text) => setCardDetails(prev => ({ ...prev, cardNumber: text }))}
+                />
+              </View>
+            )}
+
+            <View style={styles.totalAmount}>
+              <Text style={[styles.totalLabel, { color: colors.text }]}>Total Amount:</Text>
+              <Text style={[styles.totalValue, { color: colors.primary }]}>{formatPrice(selectedStall.price)}</Text>
+            </View>
+          </View>
+        )}
+
         {/* Action Button */}
         <View style={styles.actionContainer}>
-          <TouchableOpacity
-            style={[styles.bookButton, { backgroundColor: colors.primary }]}
-            onPress={handleBooking}
-          >
-            <Text style={styles.bookButtonText}>
-              {selectedStall ? `Book ${selectedStall.name}` : 'Select Stall First'}
-            </Text>
-          </TouchableOpacity>
+          {!showPayment ? (
+            <TouchableOpacity
+              style={[styles.bookButton, { backgroundColor: colors.primary }]}
+              onPress={handleBooking}
+            >
+              <Text style={styles.bookButtonText}>
+                {selectedStall ? `Book ${selectedStall.name}` : 'Select Stall First'}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={[styles.bookButton, { backgroundColor: '#28a745' }]}
+              onPress={handlePayment}
+            >
+              <Text style={styles.bookButtonText}>
+                Pay Now - {formatPrice(selectedStall.price)}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
+  </StallBackground>
   );
 };
 

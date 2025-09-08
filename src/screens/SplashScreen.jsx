@@ -20,7 +20,7 @@ const SplashScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.centerContent}>
         <LogoSvg size={120} />
-        <Text style={styles.appName} testID="splash-app-name">expoWorld</Text>
+        <Text style={styles.appName} testID="splash-app-name">Trade Fair Wala</Text>
         <ActivityIndicator size="large" color="#007AFF" style={styles.loader} testID="splash-loader" />
       </View>
     </SafeAreaView>

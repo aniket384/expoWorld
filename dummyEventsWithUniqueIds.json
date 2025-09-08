@@ -1,0 +1,646 @@
+{
+    "A1B2C3D4E5F6G7H8": {
+        "id": "A1B2C3D4E5F6G7H8",
+        "title": "Global Tech Summit 2024",
+        "category": "Technology",
+        "venue": "Moscone Center, San Francisco",
+        "location": "San Francisco, CA",
+        "date": "2024-11-10",
+        "image": "https://example.com/images/globaltechsummit.jpg",
+        "totalStalls": 50,
+        "stallsBooked": 35,
+        "stallsLeft": 15,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "AI Innovations",
+                "type": "Technology",
+                "price": 1000,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Cybersecurity Hub",
+                "type": "Technology",
+                "price": 1200,
+                "available": true
+            }
+        }
+    },
+    "Z9Y8X7W6V5U4T3S2": {
+        "id": "Z9Y8X7W6V5U4T3S2",
+        "title": "Art & Culture Fest",
+        "category": "Arts & Culture",
+        "venue": "Austin Convention Center",
+        "location": "Austin, TX",
+        "date": "2024-12-05",
+        "image": "https://example.com/images/artculturefest.jpg",
+        "totalStalls": 30,
+        "stallsBooked": 20,
+        "stallsLeft": 10,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Handmade Crafts",
+                "type": "Crafts",
+                "price": 500,
+                "available": true
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Local Artists",
+                "type": "Art",
+                "price": 700,
+                "available": false
+            }
+        }
+    },
+    "B3C4D5E6F7G8H9I0": {
+        "id": "B3C4D5E6F7G8H9I0",
+        "title": "Food Carnival 2024",
+        "category": "Food & Beverage",
+        "venue": "Downtown Plaza",
+        "location": "New York, NY",
+        "date": "2024-10-20",
+        "image": "https://example.com/images/foodcarnival.jpg",
+        "totalStalls": 40,
+        "stallsBooked": 25,
+        "stallsLeft": 15,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Gourmet Delights",
+                "type": "Food",
+                "price": 800,
+                "available": true
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Sweet Treats",
+                "type": "Desserts",
+                "price": 600,
+                "available": false
+            }
+        }
+    },
+    "J1K2L3M4N5O6P7Q8": {
+        "id": "J1K2L3M4N5O6P7Q8",
+        "title": "Fashion Expo 2024",
+        "category": "Fashion",
+        "venue": "Convention Hall A",
+        "location": "Los Angeles, CA",
+        "date": "2024-09-30",
+        "image": "https://example.com/images/fashionexpo.jpg",
+        "totalStalls": 35,
+        "stallsBooked": 30,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Trendy Styles",
+                "type": "Clothing",
+                "price": 900,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Accessories Galore",
+                "type": "Accessories",
+                "price": 700,
+                "available": true
+            }
+        }
+    },
+    "R9S8T7U6V5W4X3Y2": {
+        "id": "R9S8T7U6V5W4X3Y2",
+        "title": "Health & Wellness Fair",
+        "category": "Health",
+        "venue": "City Expo Center",
+        "location": "Chicago, IL",
+        "date": "2024-11-15",
+        "image": "https://example.com/images/healthwellness.jpg",
+        "totalStalls": 45,
+        "stallsBooked": 40,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Fitness Gear",
+                "type": "Fitness",
+                "price": 750,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Organic Products",
+                "type": "Health",
+                "price": 650,
+                "available": true
+            }
+        }
+    },
+    "F1G2H3I4J5K6L7M8": {
+        "id": "F1G2H3I4J5K6L7M8",
+        "title": "Book Lovers Convention",
+        "category": "Books",
+        "venue": "Grand Library Hall",
+        "location": "Boston, MA",
+        "date": "2024-10-10",
+        "image": "https://example.com/images/booklovers.jpg",
+        "totalStalls": 25,
+        "stallsBooked": 20,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Rare Finds",
+                "type": "Books",
+                "price": 400,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "New Releases",
+                "type": "Books",
+                "price": 350,
+                "available": true
+            }
+        }
+    },
+    "N9O8P7Q6R5S4T3U2": {
+        "id": "N9O8P7Q6R5S4T3U2",
+        "title": "Music Festival 2024",
+        "category": "Music",
+        "venue": "Open Air Theater",
+        "location": "Nashville, TN",
+        "date": "2024-09-25",
+        "image": "https://example.com/images/musicfestival.jpg",
+        "totalStalls": 60,
+        "stallsBooked": 55,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Instruments Hub",
+                "type": "Music",
+                "price": 1100,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Merchandise",
+                "type": "Music",
+                "price": 900,
+                "available": true
+            }
+        }
+    },
+    "V1W2X3Y4Z5A6B7C8": {
+        "id": "V1W2X3Y4Z5A6B7C8",
+        "title": "Startup Expo",
+        "category": "Business",
+        "venue": "Innovation Hub",
+        "location": "Seattle, WA",
+        "date": "2024-11-05",
+        "image": "https://example.com/images/startupexpo.jpg",
+        "totalStalls": 40,
+        "stallsBooked": 30,
+        "stallsLeft": 10,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Tech Startups",
+                "type": "Business",
+                "price": 950,
+                "available": true
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Investor Lounge",
+                "type": "Business",
+                "price": 1200,
+                "available": false
+            }
+        }
+    },
+    "D9E8F7G6H5I4J3K2": {
+        "id": "D9E8F7G6H5I4J3K2",
+        "title": "Film & Media Expo",
+        "category": "Entertainment",
+        "venue": "Cinema Complex",
+        "location": "Los Angeles, CA",
+        "date": "2024-12-01",
+        "image": "https://example.com/images/filmmedia.jpg",
+        "totalStalls": 50,
+        "stallsBooked": 45,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Film Studios",
+                "type": "Media",
+                "price": 1300,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Production Houses",
+                "type": "Media",
+                "price": 1100,
+                "available": true
+            }
+        }
+    },
+    "L1M2N3O4P5Q6R7S8": {
+        "id": "L1M2N3O4P5Q6R7S8",
+        "title": "Gaming Expo 2024",
+        "category": "Gaming",
+        "venue": "Expo Center",
+        "location": "Las Vegas, NV",
+        "date": "2024-10-15",
+        "image": "https://example.com/images/gamingexpo.jpg",
+        "totalStalls": 55,
+        "stallsBooked": 50,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Game Developers",
+                "type": "Gaming",
+                "price": 1000,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Esports Teams",
+                "type": "Gaming",
+                "price": 900,
+                "available": true
+            }
+        }
+    },
+    "T9U8V7W6X5Y4Z3A2": {
+        "id": "T9U8V7W6X5Y4Z3A2",
+        "title": "Education Fair",
+        "category": "Education",
+        "venue": "City Hall",
+        "location": "Denver, CO",
+        "date": "2024-11-20",
+        "image": "https://example.com/images/educationfair.jpg",
+        "totalStalls": 35,
+        "stallsBooked": 25,
+        "stallsLeft": 10,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Universities",
+                "type": "Education",
+                "price": 700,
+                "available": true
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Training Centers",
+                "type": "Education",
+                "price": 600,
+                "available": false
+            }
+        }
+    },
+    "E1F2G3H4I5J6K7L8": {
+        "id": "E1F2G3H4I5J6K7L8",
+        "title": "Auto Expo 2024",
+        "category": "Automobile",
+        "venue": "Motor Showground",
+        "location": "Detroit, MI",
+        "date": "2024-09-18",
+        "image": "https://example.com/images/autoexpo.jpg",
+        "totalStalls": 45,
+        "stallsBooked": 40,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Car Manufacturers",
+                "type": "Automobile",
+                "price": 1100,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Accessory Vendors",
+                "type": "Automobile",
+                "price": 900,
+                "available": true
+            }
+        }
+    },
+    "G9H8I7J6K5L4M3N2": {
+        "id": "G9H8I7J6K5L4M3N2",
+        "title": "Home & Garden Show",
+        "category": "Lifestyle",
+        "venue": "Expo Pavilion",
+        "location": "Portland, OR",
+        "date": "2024-10-25",
+        "image": "https://example.com/images/homegarden.jpg",
+        "totalStalls": 30,
+        "stallsBooked": 20,
+        "stallsLeft": 10,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Garden Supplies",
+                "type": "Lifestyle",
+                "price": 600,
+                "available": true
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Home Decor",
+                "type": "Lifestyle",
+                "price": 700,
+                "available": false
+            }
+        }
+    },
+    "H1I2J3K4L5M6N7O8": {
+        "id": "H1I2J3K4L5M6N7O8",
+        "title": "Photography Expo",
+        "category": "Photography",
+        "venue": "Art Gallery",
+        "location": "Miami, FL",
+        "date": "2024-11-12",
+        "image": "https://example.com/images/photographyexpo.jpg",
+        "totalStalls": 25,
+        "stallsBooked": 18,
+        "stallsLeft": 7,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Camera Gear",
+                "type": "Photography",
+                "price": 800,
+                "available": true
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Photo Prints",
+                "type": "Photography",
+                "price": 500,
+                "available": false
+            }
+        }
+    },
+    "I9J8K7L6M5N4O3P2": {
+        "id": "I9J8K7L6M5N4O3P2",
+        "title": "Travel & Tourism Expo",
+        "category": "Travel",
+        "venue": "Convention Center",
+        "location": "Orlando, FL",
+        "date": "2024-12-10",
+        "image": "https://example.com/images/travelexpo.jpg",
+        "totalStalls": 40,
+        "stallsBooked": 35,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Tour Operators",
+                "type": "Travel",
+                "price": 900,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Hotel Chains",
+                "type": "Travel",
+                "price": 850,
+                "available": true
+            }
+        }
+    },
+    "K1L2M3N4O5P6Q7R8": {
+        "id": "K1L2M3N4O5P6Q7R8",
+        "title": "Sports Expo 2024",
+        "category": "Sports",
+        "venue": "Stadium Arena",
+        "location": "Dallas, TX",
+        "date": "2024-09-28",
+        "image": "https://example.com/images/sportsexpo.jpg",
+        "totalStalls": 50,
+        "stallsBooked": 45,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Sports Equipment",
+                "type": "Sports",
+                "price": 1000,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Athlete Merchandise",
+                "type": "Sports",
+                "price": 900,
+                "available": true
+            }
+        }
+    },
+    "M9N8O7P6Q5R4S3T2": {
+        "id": "M9N8O7P6Q5R4S3T2",
+        "title": "Education & Career Fair",
+        "category": "Education",
+        "venue": "City Convention Hall",
+        "location": "Philadelphia, PA",
+        "date": "2024-10-18",
+        "image": "https://example.com/images/educationcareer.jpg",
+        "totalStalls": 35,
+        "stallsBooked": 30,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Colleges",
+                "type": "Education",
+                "price": 700,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Job Recruiters",
+                "type": "Career",
+                "price": 800,
+                "available": true
+            }
+        }
+    },
+    "O1P2Q3R4S5T6U7V8": {
+        "id": "O1P2Q3R4S5T6U7V8",
+        "title": "Environmental Expo",
+        "category": "Environment",
+        "venue": "Green Park",
+        "location": "San Diego, CA",
+        "date": "2024-11-22",
+        "image": "https://example.com/images/environmentalexpo.jpg",
+        "totalStalls": 30,
+        "stallsBooked": 25,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Renewable Energy",
+                "type": "Environment",
+                "price": 600,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Eco Products",
+                "type": "Environment",
+                "price": 550,
+                "available": true
+            }
+        }
+    },
+    "Q9R8S7T6U5V4W3X2": {
+        "id": "Q9R8S7T6U5V4W3X2",
+        "title": "Food & Beverage Expo",
+        "category": "Food & Beverage",
+        "venue": "City Expo Center",
+        "location": "Houston, TX",
+        "date": "2024-12-12",
+        "image": "https://example.com/images/foodbeverage.jpg",
+        "totalStalls": 40,
+        "stallsBooked": 35,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Beverage Brands",
+                "type": "Food & Beverage",
+                "price": 800,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Snack Vendors",
+                "type": "Food & Beverage",
+                "price": 700,
+                "available": true
+            }
+        }
+    },
+    "S1T2U3V4W5X6Y7Z8": {
+        "id": "S1T2U3V4W5X6Y7Z8",
+        "title": "Crafts & Handmade Fair",
+        "category": "Crafts",
+        "venue": "Artisan Market",
+        "location": "Santa Fe, NM",
+        "date": "2024-10-28",
+        "image": "https://example.com/images/craftsfair.jpg",
+        "totalStalls": 25,
+        "stallsBooked": 20,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Pottery",
+                "type": "Crafts",
+                "price": 400,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Textiles",
+                "type": "Crafts",
+                "price": 350,
+                "available": true
+            }
+        }
+    },
+    "U9V8W7X6Y5Z4A3B2": {
+        "id": "U9V8W7X6Y5Z4A3B2",
+        "title": "Startup & Innovation Expo",
+        "category": "Business",
+        "venue": "Tech Park",
+        "location": "San Jose, CA",
+        "date": "2024-11-08",
+        "image": "https://example.com/images/startupinnovation.jpg",
+        "totalStalls": 45,
+        "stallsBooked": 40,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Innovative Startups",
+                "type": "Business",
+                "price": 1000,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Venture Capitalists",
+                "type": "Business",
+                "price": 1200,
+                "available": true
+            }
+        }
+    },
+    "W1X2Y3Z4A5B6C7D8": {
+        "id": "W1X2Y3Z4A5B6C7D8",
+        "title": "Film & Television Expo",
+        "category": "Entertainment",
+        "venue": "Studio Complex",
+        "location": "Atlanta, GA",
+        "date": "2024-12-03",
+        "image": "https://example.com/images/filmtelevision.jpg",
+        "totalStalls": 50,
+        "stallsBooked": 45,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Production Studios",
+                "type": "Entertainment",
+                "price": 1300,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Casting Agencies",
+                "type": "Entertainment",
+                "price": 1100,
+                "available": true
+            }
+        }
+    },
+    "Y9Z8A7B6C5D4E3F2": {
+        "id": "Y9Z8A7B6C5D4E3F2",
+        "title": "Health & Fitness Expo",
+        "category": "Health",
+        "venue": "Wellness Center",
+        "location": "Orlando, FL",
+        "date": "2024-11-18",
+        "image": "https://example.com/images/healthfitness.jpg",
+        "totalStalls": 40,
+        "stallsBooked": 35,
+        "stallsLeft": 5,
+        "stalls": {
+            "stall1": {
+                "id": "stall1",
+                "name": "Fitness Equipment",
+                "type": "Health",
+                "price": 900,
+                "available": false
+            },
+            "stall2": {
+                "id": "stall2",
+                "name": "Nutrition Products",
+                "type": "Health",
+                "price": 850,
+                "available": true
+            }
+        }
+    }
+}

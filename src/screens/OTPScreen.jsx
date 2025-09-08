@@ -16,6 +16,7 @@ const OTPScreen = () => {
   const [loading, setLoading] = useState(false);
   const [confirm, setConfirm] = useState(null);
   const [codeSent, setCodeSent] = useState(false);
+  const [timer, setTimer] = useState(0);
 
   const otpInputs = useRef([]);
 
@@ -25,6 +26,19 @@ const OTPScreen = () => {
       handleSendCode();
     }
   }, [autoSend, mobile]);
+
+  useEffect(() => {
+    let interval = null;
+    if (codeSent && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [codeSent, timer]);
+
 
   const handleSendCode = async () => {
     console.log('handleSendCode called with mobile:', mobile);
@@ -43,7 +57,8 @@ const OTPScreen = () => {
       console.log('OTP confirmation object:', confirmation);
       setConfirm(confirmation);
       setCodeSent(true);
-      
+      setTimer(60);
+
       Alert.alert('OTP Sent', 'Please check your SMS for the verification code');
     } catch (error) {
       console.error('Error sending OTP:', error);
@@ -74,9 +89,15 @@ const OTPScreen = () => {
       // Check if this is an organizer login
       const { isOrganizer } = route.params || {};
       if (isOrganizer) {
-        navigation.navigate('OrganizerDashboard');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'OrganizerDashboard' }],
+        });
       } else {
-        navigation.navigate('MainTabs');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MainTabs' }],
+        });
       }
     } catch (error) {
       console.error('Error verifying OTP:', error);
@@ -98,6 +119,7 @@ const OTPScreen = () => {
       const confirmation = await auth().signInWithPhoneNumber(`+91${mobile}`);
       console.log('New OTP confirmation object:', confirmation);
       setConfirm(confirmation);
+      setTimer(60);
       
       Alert.alert('OTP Resent', 'A new verification code has been sent');
     } catch (error) {
@@ -171,9 +193,11 @@ const OTPScreen = () => {
             <TouchableOpacity
               style={styles.resendButton}
               onPress={handleResendCode}
-              disabled={loading}
+              disabled={loading || timer > 0}
             >
-              <Text style={styles.resendText}>Resend OTP</Text>
+              <Text style={styles.resendText}>
+                {timer > 0 ? `Resend OTP in ${timer} seconds` : 'Resend OTP'}
+              </Text>
             </TouchableOpacity>
           )}
         </View>

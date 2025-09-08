@@ -1,0 +1,50 @@
+{
+  "events": {
+    "event1": {
+      "id": "event1",
+      "title": "Tech Expo 2024",
+      "location": "San Francisco, CA",
+      "date": "2024-09-15",
+      "image": "https://example.com/images/techexpo.jpg",
+      "stalls": {
+        "stall1": {
+          "id": "stall1",
+          "name": "Innovators Booth",
+          "type": "Technology",
+          "price": 500,
+          "available": true
+        },
+        "stall2": {
+          "id": "stall2",
+          "name": "Gadget Zone",
+          "type": "Electronics",
+          "price": 750,
+          "available": false
+        }
+      }
+    },
+    "event2": {
+      "id": "event2",
+      "title": "Art & Craft Fair",
+      "location": "Austin, TX",
+      "date": "2024-10-05",
+      "image": "https://example.com/images/artcraftfair.jpg",
+      "stalls": {
+        "stall1": {
+          "id": "stall1",
+          "name": "Handmade Crafts",
+          "type": "Crafts",
+          "price": 300,
+          "available": true
+        },
+        "stall2": {
+          "id": "stall2",
+          "name": "Artistic Expressions",
+          "type": "Art",
+          "price": 450,
+          "available": true
+        }
+      }
+    }
+  }
+}
